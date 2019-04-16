@@ -1,0 +1,51 @@
+<header>
+  <header>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <span>Data Migration Tool</span>
+        <span class="example-fill-remaining-space"></span>
+        <span class="align-center"></span>
+        <span class="example-spacer"></span>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </header>
+
+  <body>
+    <div class="panel-body" style="position:relative">
+      <div class="table-responsive">
+
+        <table class="table">
+          <tbody>
+            <tr>
+              <td>
+                Select Client
+              </td>
+              <td>
+                <select id="client" [(ngModel)]="selectedClient" #client (change)="loadProducts($event.target.value)">
+                  <option *ngFor="let client of clients" value="{{client.clientId}}">{{client.clientName}}</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                  Select Product
+              </td>
+              <td>
+                <select #product id="product" style="border-left-style: double">
+                  <option *ngFor="let product of products" value="{{product.productId}}">{{product.productName}}
+                  </option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <button name="Next" class="btn btn-primary" type="submit"
+                  (click)="next(product.value,client.value)">Next</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>

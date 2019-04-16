@@ -1,0 +1,80 @@
+<header>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Data Migration Tool</span>
+      <span class="example-fill-remaining-space"></span>
+      <span class="align-center"></span>
+      <span class="example-spacer"></span>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</header>
+
+<body>
+  <br />
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          Select Module
+          <select id="module" [(ngModel)]="selectedModule" #module (change)="loadFields($event.target.value)">
+            <option *ngFor="let module of entities" value="{{module.moduleId}}">{{module.moduleName}}</option>
+          </select>
+        </td>
+        <td></td>
+        <td></td>
+        <td>
+          <input type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file"
+            accept=".xlsx">
+          <button type="button" class="btn btn-primary" (click)="Upload()">Upload</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+
+  <div class="panel panel-default" style="margin-top:10px;">
+    <div class="container">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <h4 style="text-align-last: center">List of Mappings</h4>
+        </div>
+      </div>
+    </div>
+    <br />
+    <br />
+    <div class="panel-body" style="position:relative">
+      <div class="table-responsive">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Field Field Name</th>
+              <th>Field Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let field of fields">
+              <td>
+                <div class="form-group">
+                  <span>
+                    <input type="text" class="form-control" [(ngModel)]="field.fieldName" disabled />
+                  </span>
+                </div>
+              </td>
+              <td>
+                <div class="dropdown">
+                  <select (change)="loadMapping($event.target.value,field,module)">
+                    <option *ngFor="let val of fieldVal">{{val}}</option>
+                  </select>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <button type="button" class="btn btn-success" (click)="save(module.value)">Save & Execute</button>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
